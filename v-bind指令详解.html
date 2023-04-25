@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind指令详解（这是一个负责动态绑定的指令）</title>
+    <!-- 安装Vue -->
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        v-bind指令详解
+            1. 这个指令是干嘛的？
+                它可以让HTML标签的某个属性的值产生动态的效果
+            2. v-bind指令的语法格式
+                <HTML标签 v-bind:参数="表达式"></HTML标签>
+            3. v-bind指令的编译原理
+                编译前：
+                    <HTML标签 v-bind:参数="表达式"></HTML标签>
+                编译后：
+                    <HTML标签 参数="表达式的执行结果"></HTML标签>
+                注意两项：
+                    第一：在编译的时候，v-bind指令后面的"参数名"会被翻译成html标签的属性名
+                    第二：表达式会关联data，当data发生改变之后，表达式的执行结果就会发生变化，产生动态的效果
+            4. Vue框架给v-bind指令提供了一种简写方式（只有v-bind指令可用）
+                <img :src="imgPath"/> <br>
+     -->
+
+    <!-- 准备一个容器 -->
+    <div id="app">
+        <!-- 注意：以下代码中msg是变量名 -->
+        <!-- 注意：原则上v-bind指令的参数名可以随便写 -->
+        <span v-bind:xyz="msg"></span>
+
+        <!-- v-bind指令实战 -->
+        <img src="../image/1.jpg"> <br>
+        <img v-bind:src="imgPath"/> <br>
+
+        <!-- v-bind简写方式 -->
+        <img :src="imgPath"/> <br>
+
+        <!-- 这是一个普通的文本框 -->
+        <input type="text" name="username" value="zhangsan"> <br>
+        <!-- v-bind动态文本框 -->
+        <input type="text" name="username" :value="username"> <br>
+
+        <!-- 超链接 -->
+        <a href="https://www.baidu.com">走起</a> <br>
+        <a :href="url">走着</a> <br>
+
+        <!--
+            不能这样使用
+            href="{{url}}": Interpolation inside attributes has been removed.
+            Use v-bind or the colon shorthand instead.
+            For example, instead of <div id="{{ val }}">, use <div :id="val">.
+
+            已删除属性内的插值。请改用 v-bind 或冒号速记。
+         -->
+        <!-- <a href="{{url}}">走着</a> <br> -->
+
+    </div>
+    <!-- Vue程序 -->
+    <script>
+
+        // 赋值的过程可以看做是一种绑定的过程
+        // let i = 100;
+
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue!',
+                imgPath: '../image/1.jpg',
+                username: 'jackson',
+                url: 'https://www.baidu.com'
+            }
+        })
+    </script>
+</body>
+</html>
